@@ -3,7 +3,7 @@ package com.a114193.prefixmod.tab;
 import com.a114193.prefixmod.PrefixMod;
 import net.minecraft.scoreboard.AbstractTeam;
 import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.scoreboard.ScoreboardTeam;
+import net.minecraft.scoreboard.Team;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -38,7 +38,7 @@ public class PrefixTeams {
 
         // Remove from current pm_ team (if any)
         AbstractTeam currentTeam = sb.getPlayerTeam(playerName);
-        if (currentTeam instanceof ScoreboardTeam current && current.getName().startsWith(TEAM_PREFIX)) {
+        if (currentTeam instanceof Team current && current.getName().startsWith(TEAM_PREFIX)) {
             sb.removePlayerFromTeam(playerName, current);
         }
 
@@ -47,7 +47,7 @@ public class PrefixTeams {
         }
 
         String coloured = colorize(rawPrefix);
-        ScoreboardTeam team = getOrCreateTeam(sb, coloured);
+        Team team = getOrCreateTeam(sb, coloured);
         sb.addPlayerToTeam(playerName, team);
     }
 
@@ -61,9 +61,9 @@ public class PrefixTeams {
     // -----------------------------------------------------------------------
 
     /** Find an existing pm_ team with {@code coloured} as prefix, or create one. */
-    private static ScoreboardTeam getOrCreateTeam(Scoreboard sb, String coloured) {
-        Collection<ScoreboardTeam> teams = sb.getTeams();
-        for (ScoreboardTeam t : teams) {
+    private static Team getOrCreateTeam(Scoreboard sb, String coloured) {
+        Collection<Team> teams = sb.getTeams();
+        for (Team t : teams) {
             if (!t.getName().startsWith(TEAM_PREFIX)) continue;
             // The prefix stored on the team is "coloured " (trailing space)
             String stored = t.getPrefix().getString();
@@ -73,7 +73,7 @@ public class PrefixTeams {
         }
         // Create a fresh team
         String name = unusedTeamName(sb);
-        ScoreboardTeam team = sb.addTeam(name);
+        Team team = sb.addTeam(name);
         team.setPrefix(Text.literal(coloured + " "));
         return team;
     }
