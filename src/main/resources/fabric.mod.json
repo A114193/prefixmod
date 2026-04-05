@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "prefixmod",
+  "version": "${version}",
+  "name": "PrefixMod",
+  "description": "Configurable per-player prefixes stored on the server, applied via scoreboard teams (TAB) and chat formatting.",
+  "authors": ["A114193"],
+  "license": "MIT",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "com.a114193.prefixmod.PrefixMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "fabric-api": "*",
+    "minecraft": "~1.21"
+  }
+}
